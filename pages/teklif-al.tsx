@@ -35,25 +35,11 @@ export default function QuotePage() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('/api/teklif', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ name, phone, pickup, dropoff, shipmentType, note })
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Teklif gönderilemedi.');
-      }
-
       setDraftLinks({
-        whatsapp: data.whatsappUrl,
-        email: data.mailtoUrl
+        whatsapp: `https://wa.me/905303219004?text=${encodeURIComponent(message)}`,
+        email: `mailto:${siteConfig.email}?subject=${encodeURIComponent('Kurye Teklif Talebi')}&body=${encodeURIComponent(message)}`
       });
-      setSubmitMessage(data.message || 'Teklif alındı.');
+      setSubmitMessage('Teklif mesajı hazırlandı. WhatsApp veya e-posta taslağı ile hemen iletebilirsiniz.');
     } catch (error) {
       setDraftLinks({
         whatsapp: `https://wa.me/905303219004?text=${encodeURIComponent(message)}`,
@@ -129,7 +115,7 @@ export default function QuotePage() {
               {draftLinks ? (
                 <div className="generated-links">
                   <strong>Teklif mesajı hazır.</strong>
-                  <p>API ile işlendikten sonra istersen WhatsApp ile gönder, istersen e-posta taslağı aç.</p>
+                  <p>cPanel uyumlu akışta mesaj taslağını doğrudan WhatsApp veya e-posta ile gönderebilirsiniz.</p>
                   <div className="hero__actions">
                     <a className="primary-button" href={draftLinks.whatsapp} target="_blank" rel="noreferrer">
                       WhatsApp ile gönder

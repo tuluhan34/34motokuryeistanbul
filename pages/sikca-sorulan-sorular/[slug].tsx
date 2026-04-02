@@ -1,10 +1,10 @@
-import { GetServerSideProps } from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import Link from 'next/link';
 import { Layout } from '../../components/Layout';
 import { Schema } from '../../components/Schema';
 import { SeoHead } from '../../components/SeoHead';
 import { breadcrumbSchema, faqSchema } from '../../lib/seo';
-import { getHubItemBySlug } from '../../lib/contentHub';
+import { getHubItemBySlug, hubItems } from '../../lib/contentHub';
 import { siteConfig } from '../../lib/siteData';
 
 type FaqDetailProps = {
@@ -64,7 +64,12 @@ export default function FaqDetailPage({ item }: FaqDetailProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps<FaqDetailProps> = async ({ params }) => {
+export const getStaticPaths: GetStaticPaths = async () => ({
+  paths: hubItems.map((item) => ({ params: { slug: item.slug } })),
+  fallback: false
+});
+
+export const getStaticProps: GetStaticProps<FaqDetailProps> = async ({ params }) => {
   const slug = String(params?.slug || '');
   const item = getHubItemBySlug(slug);
 

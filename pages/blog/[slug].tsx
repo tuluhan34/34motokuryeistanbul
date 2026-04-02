@@ -1,10 +1,10 @@
-import { GetServerSideProps } from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import Link from 'next/link';
 import { Layout } from '../../components/Layout';
 import { Schema } from '../../components/Schema';
 import { SeoHead } from '../../components/SeoHead';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '../../lib/seo';
-import { getHubItemBySlug } from '../../lib/contentHub';
+import { getHubItemBySlug, hubItems } from '../../lib/contentHub';
 import { fetchUnsplashPhotos, GalleryPhoto } from '../../lib/unsplash';
 import { siteConfig } from '../../lib/siteData';
 
@@ -91,7 +91,12 @@ export default function BlogDetailPage({ item, photo }: BlogDetailProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps<BlogDetailProps> = async ({ params }) => {
+export const getStaticPaths: GetStaticPaths = async () => ({
+  paths: hubItems.map((item) => ({ params: { slug: item.slug } })),
+  fallback: false
+});
+
+export const getStaticProps: GetStaticProps<BlogDetailProps> = async ({ params }) => {
   const slug = String(params?.slug || '');
   const item = getHubItemBySlug(slug);
 

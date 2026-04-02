@@ -1,12 +1,12 @@
-import { GetServerSideProps } from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import Link from 'next/link';
 import { Layout } from '../../../components/Layout';
 import { Schema } from '../../../components/Schema';
 import { SeoHead } from '../../../components/SeoHead';
 import { fetchUnsplashPhotos, GalleryPhoto } from '../../../lib/unsplash';
-import { DistrictSeoItem, getDistrictBySlug } from '../../../lib/geoData';
+import { districts, DistrictSeoItem, getDistrictBySlug } from '../../../lib/geoData';
 import { buildKeywordSet } from '../../../lib/keywordData';
-import { getSectorBySlug, SectorCatalogItem } from '../../../lib/sectorCatalog';
+import { getSectorBySlug, sectorCatalog, SectorCatalogItem } from '../../../lib/sectorCatalog';
 import { breadcrumbSchema, faqSchema, serviceSchema, webPageSchema } from '../../../lib/seo';
 import { siteConfig } from '../../../lib/siteData';
 
@@ -124,7 +124,19 @@ export default function SectorDistrictPage({ sector, district, photo }: SectorDi
   );
 }
 
-export const getServerSideProps: GetServerSideProps<SectorDistrictPageProps> = async ({ params }) => {
+export const getStaticPaths: GetStaticPaths = async () => ({
+  paths: sectorCatalog.flatMap((sector) =>
+    districts.map((district) => ({
+      params: {
+        sector: sector.slug,
+        district: district.slug
+      }
+    }))
+  ),
+  fallback: false
+});
+
+export const getStaticProps: GetStaticProps<SectorDistrictPageProps> = async ({ params }) => {
   const sectorSlug = String(params?.sector || '');
   const districtSlug = String(params?.district || '');
   const sector = getSectorBySlug(sectorSlug);

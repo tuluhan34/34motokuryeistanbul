@@ -182,6 +182,5 @@ export default function FaqPage({ narrative }: FaqHubProps) {
 export const getStaticProps: GetStaticProps<FaqHubProps> = async () => ({
   props: {
     narrative: getTimedNarrative(new Date())
-  },
-  revalidate: 3600
+  }
 });

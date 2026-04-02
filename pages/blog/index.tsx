@@ -171,7 +171,6 @@ export const getStaticProps: GetStaticProps<BlogIndexProps> = async () => {
           photo: sectorPhoto[0]
         }
       ]
-    },
-    revalidate: 3600
+    }
   };
 };

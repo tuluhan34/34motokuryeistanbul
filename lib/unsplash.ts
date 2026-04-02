@@ -18,8 +18,9 @@ const fallbackPhoto = (query: string, index: number): GalleryPhoto => ({
 
 export const fetchUnsplashPhotos = async (query: string, count = 6): Promise<GalleryPhoto[]> => {
   const accessKey = process.env.UNSPLASH_ACCESS_KEY;
+  const isStaticExport = process.env.NEXT_OUTPUT_MODE === 'export';
 
-  if (!accessKey) {
+  if (!accessKey || isStaticExport) {
     return Array.from({ length: count }, (_, index) => fallbackPhoto(query, index));
   }
 

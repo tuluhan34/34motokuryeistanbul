@@ -165,7 +165,6 @@ export const getStaticProps: GetStaticProps<ServicePageProps> = async ({ params 
     props: {
       service,
       servicePhoto: photos[0]
-    },
-    revalidate: 3600
+    }
   };
 };

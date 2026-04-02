@@ -137,7 +137,6 @@ export const getStaticProps: GetStaticProps<GalleryIndexProps> = async () => {
       narrative: getTimedNarrative(new Date()),
       servicePhotos,
       sectorPhotos
-    },
-    revalidate: 3600
+    }
   };
 };

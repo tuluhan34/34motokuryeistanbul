@@ -1,4 +1,4 @@
-import { GetServerSideProps } from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import Link from 'next/link';
 import { Layout } from '../../components/Layout';
 import { Schema } from '../../components/Schema';
@@ -6,7 +6,7 @@ import { SeoHead } from '../../components/SeoHead';
 import { fetchUnsplashPhotos, GalleryPhoto } from '../../lib/unsplash';
 import { districts } from '../../lib/geoData';
 import { buildKeywordSet } from '../../lib/keywordData';
-import { getSectorBySlug, SectorCatalogItem } from '../../lib/sectorCatalog';
+import { getSectorBySlug, sectorCatalog, SectorCatalogItem } from '../../lib/sectorCatalog';
 import { breadcrumbSchema, faqSchema, serviceSchema, webPageSchema } from '../../lib/seo';
 import { services, siteConfig } from '../../lib/siteData';
 
@@ -156,7 +156,12 @@ export default function SectorDetailPage({ sector, photo }: SectorPageProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps<SectorPageProps> = async ({ params }) => {
+export const getStaticPaths: GetStaticPaths = async () => ({
+  paths: sectorCatalog.map((sector) => ({ params: { sector: sector.slug } })),
+  fallback: false
+});
+
+export const getStaticProps: GetStaticProps<SectorPageProps> = async ({ params }) => {
   const sectorSlug = String(params?.sector || '');
   const sector = getSectorBySlug(sectorSlug);
 
