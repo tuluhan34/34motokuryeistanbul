@@ -661,6 +661,17 @@ main {
   color: rgba(255, 255, 255, 0.72);
 }
 
+.live-order-toast--secondary {
+  bottom: 188px;
+  background: rgba(255, 106, 19, 0.96);
+  color: #111111;
+}
+
+.live-order-toast--secondary strong,
+.live-order-toast--secondary small {
+  color: rgba(17, 17, 17, 0.82);
+}
+
 .exit-popup-backdrop {
   position: fixed;
   inset: 0;
@@ -819,6 +830,10 @@ main {
     right: 10px;
     bottom: 88px;
     max-width: none;
+  }
+
+  .live-order-toast--secondary {
+    bottom: 176px;
   }
 
   .sticky-cta {

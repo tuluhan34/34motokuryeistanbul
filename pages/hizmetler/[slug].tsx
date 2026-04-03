@@ -23,7 +23,9 @@ const serviceImageQueries: Record<string, string> = {
   'gece-kurye': 'night delivery scooter city lights no people',
   'express-kurye': 'delivery scooter parcel city street no people',
   'acil-kurye': 'fast courier motorcycle parcel no people',
-  'sehir-ici-kurye': 'city courier scooter package no people'
+  'sehir-ici-kurye': 'city courier scooter package no people',
+  'sehirler-arasi-kurye': 'highway parcel delivery van logistics no people',
+  'vale-ozel-sofor': 'chauffeur service car city business no people'
 };
 
 export default function ServicePage({ service, servicePhoto }: ServicePageProps) {

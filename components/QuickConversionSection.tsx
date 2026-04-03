@@ -1,5 +1,6 @@
 import { FormEvent, useMemo, useState } from 'react';
 import { siteConfig } from '../lib/siteData';
+import { services } from '../lib/siteData';
 
 type QuickConversionSectionProps = {
   neighborhoodCount: number;
@@ -21,6 +22,7 @@ export function QuickConversionSection({ neighborhoodCount }: QuickConversionSec
       { value: '12', label: 'aktif kurye sahada' },
       { value: '18 dk', label: 'ortalama pickup hedefi' },
       { value: '64', label: 'bugun tamamlanan teslimat' },
+      { value: `${services.length} hizmet`, label: 'aktif hizmet secenegi' },
       { value: `39 ilce / ${neighborhoodCount}+ mahalle`, label: 'lokal kapsama alani' }
     ],
     [neighborhoodCount]

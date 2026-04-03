@@ -86,6 +86,22 @@ const programmaticServices: ProgrammaticService[] = [
     deliveryPromise: 'hacimli gönderiler için araçlı yönlendirme',
     priceMultiplier: 1.52,
     usp: 'Koli, yedek parça ve hacimli paketler için motor yerine araçlı operasyon seçeneği sunar.'
+  },
+  {
+    slug: 'sehirler-arasi-kurye',
+    name: 'Şehirler Arası Kurye',
+    serviceLabel: 'şehirler arası kurye',
+    deliveryPromise: 'İstanbul çıkışlı planlı şehir dışı teslimat',
+    priceMultiplier: 1.95,
+    usp: 'İstanbul çıkışlı evrak, numune ve özel paket teslimatlarında rota, araç tipi ve teslim süresini tek planda toplar.'
+  },
+  {
+    slug: 'vale-ozel-sofor',
+    name: 'Vale Özel Şoför',
+    serviceLabel: 'vale özel şoför',
+    deliveryPromise: 'planlı vale ve özel şoför organizasyonu',
+    priceMultiplier: 1.75,
+    usp: 'Kurumsal karşılama, araç teslim alma ve özel şoför planlamasında kontrollü, ulaşılabilir ve zaman odaklı destek sunar.'
   }
 ];
 

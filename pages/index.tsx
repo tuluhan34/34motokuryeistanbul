@@ -221,7 +221,7 @@ export default function HomePage() {
               </div>
               <div className="metric-strip">
                 <div>
-                  <strong>10+</strong>
+                  <strong>{services.length}</strong>
                   <span>hizmet sayfası</span>
                 </div>
                 <div>
@@ -229,7 +229,7 @@ export default function HomePage() {
                   <span>ilçe sayfası</span>
                 </div>
                 <div>
-                  <strong>117</strong>
+                  <strong>{neighborhoodCount}+</strong>
                   <span>mahalle sayfası</span>
                 </div>
               </div>
@@ -335,7 +335,7 @@ export default function HomePage() {
           <div className="container">
             <div className="section-head">
               <p className="eyebrow">Hizmetlerimiz</p>
-              <h2>Acil kurye, express kurye ve ayni gun teslimat secenekleri</h2>
+              <h2>Acil kurye, şehirler arası kurye, vale özel şoför ve teslimat hizmetleri</h2>
               <p>
                 Gonderinizin hizina ve tasima tipine gore en uygun hizmet secenegini kolayca inceleyin.
               </p>

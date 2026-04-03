@@ -17,13 +17,17 @@ export type DistrictItem = {
 
 export const siteConfig = {
   brand: '34 Moto Kurye İstanbul',
+  legalName: '34 Moto Kurye İstanbul',
+  alternateNames: ['34 Moto Kurye', '34 Kurye', '34 Moto Kurye Istanbul', '34 Kurye Istanbul'],
   domain: 'https://www.34motokuryeistanbul.com',
   phoneDisplay: '0530 321 90 04',
   phoneHref: 'tel:+905303219004',
   whatsappHref: 'https://wa.me/905303219004?text=Merhaba%2C%20gonderim%20detayini%20paylasiyorum.%20Hemen%20fiyat%20almak%20istiyorum.',
   city: 'İstanbul',
   email: 'bilgi@34kurye.com',
-  mapEmbedUrl: 'https://storage.googleapis.com/maps-solutions-uqtp8x8eyn/commutes/oika/commutes.html'
+  mapEmbedUrl: 'https://storage.googleapis.com/maps-solutions-uqtp8x8eyn/commutes/oika/commutes.html',
+  slogan: 'İstanbul içi acil, express ve şehir içi kurye hizmeti',
+  logoPath: '/brand-mark.svg'
 };
 
 export const coreKeywords = [
@@ -48,7 +52,17 @@ export const coreKeywords = [
   '7/24 kurye istanbul',
   'fiyat hesapla kurye',
   'e-ticaret kurye',
-  'medikal kurye'
+  'medikal kurye',
+  'istanbul motor kurye',
+  'ataşehir kurye',
+  'ataşehir moto kurye',
+  'jet kurye istanbul',
+  'adresime kurye istanbul',
+  'gönderim var kurye',
+  'şehirler arası kurye',
+  'şehirler arası teslimat',
+  'vale özel şoför',
+  'özel şoför istanbul'
 ];
 
 export const services: ServiceItem[] = [
@@ -170,6 +184,30 @@ export const services: ServiceItem[] = [
     faqs: [
       { question: 'Aynı gün kurye hangi gönderiler için uygundur?', answer: 'Evrak, küçük paket, e-ticaret siparişi, sözleşme ve acil kurumsal gönderiler için uygundur.' },
       { question: 'Teslim süresi garanti edilir mi?', answer: 'Net süre; pickup noktası, teslim noktası, trafik ve saat bilgisine göre operasyon başlangıcında belirlenir.' }
+    ]
+  },
+  {
+    slug: 'sehirler-arasi-kurye',
+    name: 'Şehirler Arası Kurye',
+    short: 'İstanbul çıkışlı şehirler arası evrak, paket ve özel teslimatlar için planlı hızlı çıkış.',
+    hero: 'İstanbul çıkışlı şehirler arası kurye taleplerinde rota, araç tipi ve teslim süresi birlikte planlanır; acil ve kontrollü gönderiler için tek noktadan operasyon sağlıyoruz.',
+    intent: ['şehirler arası kurye', 'şehirler arası teslimat', 'istanbul çıkışlı kurye', 'şehir dışı kurye'],
+    bullets: ['İstanbul çıkışlı şehir dışı evrak ve paket taşıma', 'Acil rota, araç tipi ve teslim zamanı birlikte planlanır', 'Kurumsal dosya, numune ve özel teslimatlar için kontrollü akış'],
+    faqs: [
+      { question: 'Şehirler arası kurye hangi gönderiler için uygundur?', answer: 'Acil evrak, sözleşme, numune, küçük paket ve zaman kritik kurumsal gönderiler için uygundur.' },
+      { question: 'Teslim süresi nasıl belirlenir?', answer: 'Mesafe, rota, araç tipi ve teslim saatine göre net süre operasyon başlangıcında paylaşılır.' }
+    ]
+  },
+  {
+    slug: 'vale-ozel-sofor',
+    name: 'Vale Özel Şoför',
+    short: 'Özel şoför ve vale destekli zaman kritik kurumsal ulaşım ve teslim organizasyonu.',
+    hero: 'Vale özel şoför hizmeti; kurumsal karşılama, araç teslim alma, yönetici ulaşımı ve zaman kritik evrak veya araç bağlantılı operasyonlarda kontrollü destek sunar.',
+    intent: ['vale özel şoför', 'özel şoför istanbul', 'vale hizmeti', 'şoför destek hizmeti'],
+    bullets: ['Kurumsal vale ve özel şoför planlaması', 'Araç teslim alma, karşılama ve yönlendirme desteği', 'Yönetici, misafir ve operasyon odaklı kontrollü organizasyon'],
+    faqs: [
+      { question: 'Vale özel şoför hizmeti hangi durumlarda alınır?', answer: 'Kurumsal etkinlik, yönetici ulaşımı, araç teslim alma, misafir karşılama ve planlı operasyon günlerinde tercih edilir.' },
+      { question: 'Bu hizmet kurye operasyonuyla birlikte planlanabilir mi?', answer: 'Evet. Ulaşım, evrak ve araç bağlantılı operasyonlar aynı plan içinde koordine edilebilir.' }
     ]
   }
 ];

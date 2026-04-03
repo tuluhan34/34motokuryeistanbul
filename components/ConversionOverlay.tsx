@@ -5,7 +5,13 @@ const liveOrders = [
   { route: 'Kadikoy -> Sisli evrak gonderisi olusturuldu', time: '2 dk once' },
   { route: 'Atasehir -> Besiktas acil parca teslimi alindi', time: '4 dk once' },
   { route: 'Bakirkoy -> Fatih kurumsal paket talebi geldi', time: '6 dk once' },
-  { route: 'Umraniye -> Levent express kurye talebi acildi', time: '1 dk once' }
+  { route: 'Umraniye -> Levent express kurye talebi acildi', time: '1 dk once' },
+  { route: 'Kadikoy -> Atasehir vale ozel sofor talebi kaydedildi', time: '3 dk once' },
+  { route: 'Sisli -> Ankara sehirler arasi kurye talebi alindi', time: '5 dk once' },
+  { route: 'Besiktas -> Sariyer vip evrak teslimi baslatildi', time: '2 dk once' },
+  { route: 'Maltepe -> Kartal ayni gun paket cikisi verildi', time: '7 dk once' },
+  { route: 'Atasehir -> Tuzla medikal numune tasimasi planlandi', time: '4 dk once' },
+  { route: 'Bakirkoy -> Bursa sehirler arasi evrak cikisi onaylandi', time: '8 dk once' }
 ];
 
 const popupVariants = [
@@ -83,6 +89,12 @@ export function ConversionOverlay() {
         <strong>Canli talep</strong>
         <span>{currentLiveOrder.route}</span>
         <small>{currentLiveOrder.time}</small>
+      </div>
+
+      <div className="live-order-toast live-order-toast--secondary" aria-live="polite">
+        <strong>Yeni canli talep</strong>
+        <span>{liveOrders[(liveIndex + 3) % liveOrders.length].route}</span>
+        <small>{liveOrders[(liveIndex + 3) % liveOrders.length].time}</small>
       </div>
 
       {showExitPopup ? (

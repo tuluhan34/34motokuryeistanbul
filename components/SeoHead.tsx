@@ -14,6 +14,7 @@ export function SeoHead({ title, description = defaultDescription, path = '', ke
   const canonical = `${siteConfig.domain}${path}`;
   const fullTitle = buildTitle(title);
   const keywordContent = keywords?.length ? keywords.join(', ') : keywordString;
+  const imageUrl = `${siteConfig.domain}${siteConfig.logoPath}`;
 
   return (
     <Head>
@@ -37,10 +38,14 @@ export function SeoHead({ title, description = defaultDescription, path = '', ke
       <meta property="og:description" content={description} />
       <meta property="og:url" content={canonical} />
       <meta property="og:site_name" content={siteConfig.brand} />
+      <meta property="og:image" content={imageUrl} />
+      <meta property="og:image:alt" content={siteConfig.brand} />
       <meta property="article:tag" content={keywordContent} />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={imageUrl} />
+      <meta name="twitter:image:alt" content={siteConfig.brand} />
       <link rel="canonical" href={canonical} />
     </Head>
   );

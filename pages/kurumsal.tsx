@@ -11,6 +11,13 @@ const trustBlocks = [
   'İstanbul genelinde ilçe bazlı rota planlama'
 ];
 
+const entityFacts = [
+  { label: 'Resmi marka adı', value: siteConfig.brand },
+  { label: 'Alternatif marka adları', value: siteConfig.alternateNames.join(', ') },
+  { label: 'Hizmet bölgesi', value: 'İstanbul geneli, 39 ilçe ve mahalle odaklı operasyon' },
+  { label: 'İletişim', value: `${siteConfig.phoneDisplay} | ${siteConfig.email}` }
+];
+
 export default function CorporatePage() {
   return (
     <>
@@ -41,6 +48,24 @@ export default function CorporatePage() {
                 <p>Kurumsal müşterilerin satın alma kararında operasyon standardı, hız kadar belirleyicidir.</p>
               </article>
             ))}
+          </div>
+        </section>
+
+        <section className="section section--tint">
+          <div className="container narrow">
+            <div className="section-head">
+              <p className="eyebrow">Marka kimliği</p>
+              <h2>Makine tarafından okunabilir işletme özeti</h2>
+              <p>Arama motorları ve yapay zeka sistemleri için marka adı, temas noktası ve hizmet alanı burada tek yerde toplanır.</p>
+            </div>
+            <div className="faq-list">
+              {entityFacts.map((item) => (
+                <article className="faq-item" key={item.label}>
+                  <h3>{item.label}</h3>
+                  <p>{item.value}</p>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
       </Layout>

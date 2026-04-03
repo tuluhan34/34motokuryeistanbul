@@ -1,6 +1,20 @@
 import { keywordString } from './keywordData';
 import { siteConfig } from './siteData';
 
+const logoUrl = `${siteConfig.domain}${siteConfig.logoPath}`;
+const serviceAreas = [
+  'Ataşehir',
+  'Beşiktaş',
+  'Kadıköy',
+  'Şişli',
+  'Üsküdar',
+  'Bakırköy',
+  'Kağıthane',
+  'Kartal',
+  'Eyüpsultan',
+  'İstanbul'
+];
+
 export const buildTitle = (title?: string) => {
   if (!title) {
     return `${siteConfig.brand} | Acil, Express ve Şehir İçi Moto Kurye`;
@@ -14,37 +28,71 @@ export const defaultDescription =
 
 export const organizationSchema = {
   '@context': 'https://schema.org',
-  '@type': 'CourierOrDeliveryService',
+  '@type': ['Organization', 'LocalBusiness', 'CourierOrDeliveryService'],
+  '@id': `${siteConfig.domain}/#organization`,
   name: siteConfig.brand,
-  areaServed: 'Istanbul',
+  legalName: siteConfig.legalName,
+  alternateName: siteConfig.alternateNames,
   url: siteConfig.domain,
   telephone: '+905303219004',
   email: siteConfig.email,
+  slogan: siteConfig.slogan,
+  logo: logoUrl,
+  image: logoUrl,
   hasMap: siteConfig.mapEmbedUrl,
+  priceRange: '$$',
+  areaServed: serviceAreas.map((name) => ({
+    '@type': name === 'İstanbul' ? 'City' : 'AdministrativeArea',
+    name
+  })),
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'İstanbul',
     addressCountry: 'TR'
   },
-  contactPoint: {
-    '@type': 'ContactPoint',
-    contactType: 'customer service',
-    telephone: '+905303219004',
-    areaServed: 'TR',
-    availableLanguage: ['tr', 'en']
-  },
+  knowsAbout: [
+    'moto kurye',
+    'acil kurye',
+    'express kurye',
+    'şehir içi kurye',
+    'aynı gün teslimat',
+    'evrak kurye',
+    'medikal kurye',
+    'arabalı kurye'
+  ],
+  contactPoint: [
+    {
+      '@type': 'ContactPoint',
+      contactType: 'customer service',
+      telephone: '+905303219004',
+      areaServed: 'TR',
+      availableLanguage: ['tr', 'en'],
+      url: siteConfig.whatsappHref
+    }
+  ],
   openingHours: 'Mo-Su 00:00-23:59',
-  sameAs: [siteConfig.whatsappHref]
+  sameAs: [siteConfig.whatsappHref],
+  brand: {
+    '@type': 'Brand',
+    name: siteConfig.brand,
+    alternateName: siteConfig.alternateNames,
+    logo: logoUrl,
+    url: siteConfig.domain
+  }
 };
 
 export const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
+  '@id': `${siteConfig.domain}/#website`,
   name: siteConfig.brand,
   url: siteConfig.domain,
   inLanguage: 'tr-TR',
   description: defaultDescription,
-  keywords: keywordString
+  keywords: keywordString,
+  publisher: {
+    '@id': `${siteConfig.domain}/#organization`
+  }
 };
 
 export const webPageSchema = (name: string, description: string, url: string, keywords?: string[]) => ({
@@ -54,12 +102,16 @@ export const webPageSchema = (name: string, description: string, url: string, ke
   description,
   url,
   inLanguage: 'tr-TR',
-  about: ['kurye', 'moto kurye', 'istanbul kurye', 'acil kurye'],
   keywords: keywords?.join(', ') || keywordString,
+  mentions: ['kurye', 'moto kurye', 'istanbul kurye', 'acil kurye'],
   isPartOf: {
-    '@type': 'WebSite',
-    name: siteConfig.brand,
-    url: siteConfig.domain
+    '@id': `${siteConfig.domain}/#website`
+  },
+  about: {
+    '@id': `${siteConfig.domain}/#organization`
+  },
+  publisher: {
+    '@id': `${siteConfig.domain}/#organization`
   }
 });
 
@@ -83,9 +135,7 @@ export const serviceSchema = (name: string, description: string, url: string) =>
   name,
   description,
   provider: {
-    '@type': 'CourierOrDeliveryService',
-    name: siteConfig.brand,
-    areaServed: 'İstanbul'
+    '@id': `${siteConfig.domain}/#organization`
   },
   areaServed: {
     '@type': 'City',

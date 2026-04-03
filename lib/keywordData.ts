@@ -59,6 +59,18 @@ const commercialKeywords = [
   'dakik kurye',
   'anında kurye',
   'motorlu kurye hizmeti',
+  'istanbul motor kurye',
+  'jet kurye istanbul',
+  'adresime kurye istanbul',
+  'gönderim var kurye',
+  'şehirler arası kurye',
+  'şehirler arası teslimat',
+  'şehir dışı kurye',
+  'istanbul çıkışlı kurye',
+  'vale özel şoför',
+  'özel şoför istanbul',
+  'vale hizmeti',
+  'şoför destek hizmeti',
   'kurye firması',
   'kurye şirketi',
   'bireysel kurye',
@@ -75,6 +87,8 @@ const localKeywords = [
   'aynı gün teslim kurye istanbul',
   'gece kurye istanbul',
   'vip kurye istanbul',
+  'ataşehir kurye',
+  'ataşehir moto kurye',
   'en yakın kurye',
   'istanbul avrupa yakası kurye',
   'istanbul anadolu yakası kurye'
@@ -94,6 +108,8 @@ const informationalKeywords = [
 ];
 
 const mapCommercialPath = (keyword: string) => {
+  if (keyword.includes('şehirler arası') || keyword.includes('şehir dışı') || keyword.includes('istanbul çıkışlı')) return '/hizmetler/sehirler-arasi-kurye';
+  if (keyword.includes('vale') || keyword.includes('şoför') || keyword.includes('sofor')) return '/hizmetler/vale-ozel-sofor';
   if (keyword.includes('express')) return '/hizmetler/express-kurye';
   if (keyword.includes('acil') || keyword.includes('jet') || keyword.includes('anında') || keyword.includes('dakik')) return '/hizmetler/acil-kurye';
   if (keyword.includes('gece')) return '/hizmetler/gece-kurye';
