@@ -1,7 +1,10 @@
+import { LeadEstimator } from '../components/LeadEstimator';
 import { Layout } from '../components/Layout';
 import { Schema } from '../components/Schema';
 import { SeoHead } from '../components/SeoHead';
-import { breadcrumbSchema, faqSchema, serviceSchema } from '../lib/seo';
+import { buildKeywordSet } from '../lib/keywordData';
+import { competitorCommonFeatures, implementedAdvantageChecklist } from '../lib/marketIntel';
+import { breadcrumbSchema, faqSchema, reviewSchema, serviceSchema, webPageSchema } from '../lib/seo';
 import { siteConfig } from '../lib/siteData';
 
 const pricingFactors = [
@@ -50,16 +53,25 @@ const pricingFaqs = [
 ];
 
 export default function PricingPage() {
+  const pageKeywords = buildKeywordSet(
+    ['kurye fiyatları', 'kurye fiyat hesaplama', 'istanbul kurye fiyat', 'acil kurye fiyatı', 'express kurye fiyatı'],
+    competitorCommonFeatures,
+    ['aynı gün kurye fiyatı', 'şehirler arası kurye fiyatı']
+  );
+
   return (
     <>
       <SeoHead
         title="Kurye Fiyatları İstanbul"
         description="İstanbul içi moto kurye, acil kurye, arabalı kurye ve aynı gün teslimat için fiyatı etkileyen faktörler ve teklif alma sayfası."
         path="/kurye-fiyatlari"
+        keywords={pageKeywords}
       />
       <Schema
         data={[
+          webPageSchema('Kurye Fiyatları İstanbul', 'İstanbul içi moto kurye, acil kurye, arabalı kurye ve aynı gün teslimat için fiyatı etkileyen faktörler ve teklif alma sayfası.', `${siteConfig.domain}/kurye-fiyatlari`, pageKeywords),
           serviceSchema('İstanbul Kurye Fiyatları', 'İstanbul içi kurye fiyatlandırma bilgisi ve teklif alma sayfası.', `${siteConfig.domain}/kurye-fiyatlari`),
+          reviewSchema('İstanbul Kurye Fiyatları', 'İstanbul içi kurye fiyatlandırma bilgisi ve teklif alma sayfası.', `${siteConfig.domain}/kurye-fiyatlari`),
           faqSchema(pricingFaqs),
           breadcrumbSchema([
             { name: 'Ana Sayfa', url: siteConfig.domain },
@@ -87,6 +99,12 @@ export default function PricingPage() {
           </div>
         </section>
 
+        <section className="section">
+          <div className="container">
+            <LeadEstimator />
+          </div>
+        </section>
+
         <section className="section section--tint">
           <div className="container split-panel">
             <div>
@@ -97,6 +115,31 @@ export default function PricingPage() {
             <div className="check-list">
               {averageTimes.map((item) => (
                 <span key={item}>{item}</span>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section">
+          <div className="container split-panel">
+            <div>
+              <p className="eyebrow">Rakiplerde gorulenler</p>
+              <h2>Fiyat arayan kullanici rakiplerde ne goruyor?</h2>
+              <p>Rakip sayfalarda acik fiyat hissi, hizli CTA ve hizmet farklarini ayni ekranda gormek karar hizini artiriyor. Bu sayfa ayni yapinin daha gelismis versiyonunu sunar.</p>
+            </div>
+            <div className="check-list">
+              {competitorCommonFeatures.slice(0, 5).map((item) => (
+                <span key={item}>{item}</span>
+              ))}
+            </div>
+          </div>
+          <div className="container section-stack-top">
+            <div className="card-grid two-up">
+              {implementedAdvantageChecklist.slice(0, 4).map((item) => (
+                <article key={item} className="content-card">
+                  <h3>34 Moto Kurye farki</h3>
+                  <p>{item}</p>
+                </article>
               ))}
             </div>
           </div>

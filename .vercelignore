@@ -1,7 +1,0 @@
-cpanel-release
-out
-.next
-node_modules
-.git
-.github
-.env.local

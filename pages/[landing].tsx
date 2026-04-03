@@ -11,11 +11,12 @@ import {
   getProgrammaticLandingBySlug,
   getSiblingServiceLandings
 } from '../lib/programmaticSeo';
-import { breadcrumbSchema, faqSchema, serviceSchema, webPageSchema } from '../lib/seo';
+import { PriorityKeywordLanding, getPriorityKeywordLandingBySlug, priorityKeywordLandings } from '../lib/priorityKeywordPages';
+import { breadcrumbSchema, courierServiceSchema, faqSchema, localBusinessSchema, productSchema, serviceSchema, webPageSchema } from '../lib/seo';
 import { siteConfig } from '../lib/siteData';
 
 type LandingPageProps = {
-  landing: ProgrammaticLanding;
+  landing: ProgrammaticLanding | PriorityKeywordLanding;
 };
 
 const buildLocalBusinessSchema = (landing: ProgrammaticLanding, url: string) => ({
@@ -37,6 +38,130 @@ const buildLocalBusinessSchema = (landing: ProgrammaticLanding, url: string) => 
 });
 
 export default function ProgrammaticLandingPage({ landing }: LandingPageProps) {
+  if ('keyword' in landing) {
+    const path = `/${landing.slug}`;
+    const pageUrl = `${siteConfig.domain}${path}`;
+    const pageKeywords = Array.from(new Set([landing.keyword, ...landing.lsiKeywords, `${landing.districtFocus} kurye`, 'istanbul moto kurye', 'hemen kurye', 'aynı gün teslimat']));
+
+    return (
+      <>
+        <SeoHead title={landing.title} description={landing.description} path={path} keywords={pageKeywords} />
+        <Schema
+          data={[
+            webPageSchema(landing.title, landing.description, pageUrl, pageKeywords),
+            localBusinessSchema(`${landing.keyword} | ${siteConfig.brand}`, landing.description, pageUrl, [landing.districtFocus, ...landing.nearbyDistricts]),
+            courierServiceSchema(landing.title, landing.description, pageUrl, [landing.districtFocus, ...landing.nearbyDistricts]),
+            productSchema(landing.title, landing.description, pageUrl),
+            faqSchema(landing.faqs),
+            breadcrumbSchema([
+              { name: 'Ana Sayfa', url: siteConfig.domain },
+              { name: landing.keyword, url: pageUrl }
+            ])
+          ]}
+        />
+        <Layout>
+          <section className="subhero">
+            <div className="container narrow">
+              <p className="eyebrow">Özel anahtar kelime landing page</p>
+              <h1>{landing.h1}</h1>
+              <p>{landing.description}</p>
+              <div className="tag-row">
+                <span>{landing.keyword}</span>
+                {landing.lsiKeywords.map((item) => (
+                  <span key={item}>{item}</span>
+                ))}
+              </div>
+              <div className="hero__actions">
+                <a className="primary-button" href={siteConfig.whatsappHref} target="_blank" rel="noreferrer">Şimdi WhatsApp'tan Yaz</a>
+                <a className="ghost-button" href={siteConfig.phoneHref}>5 Dakikada Kurye Kapınızda</a>
+              </div>
+            </div>
+          </section>
+
+          <section className="section">
+            <div className="container split-panel">
+              <div>
+                <p className="eyebrow">Hizmet kapsamı</p>
+                <h2>{landing.districtFocus} odaklı görünürlük ve dönüşüm akışı</h2>
+                <p>{landing.promise}</p>
+                <p>{landing.districtFocus} merkezli teslimatlar için bu sayfa telefon, WhatsApp ve teklif formu akışını birlikte görünür tutar.</p>
+              </div>
+              <div className="check-list">
+                <span>39 ilçe ve mahalle bazlı görünür hizmet yapısı</span>
+                <span>ARA / WHATSAPP CTA odaklı mobil akış</span>
+                <span>Schema destekli SEO ve indexlenebilir yapı</span>
+                <span>Soru cevap blokları ile Google AI uyumluluğu</span>
+              </div>
+            </div>
+          </section>
+
+          <section className="section section--tint">
+            <div className="container">
+              <div className="section-head">
+                <p className="eyebrow">Uzun form içerik</p>
+                <h2>{landing.keyword} için detaylı açıklamalar</h2>
+              </div>
+              <div className="card-grid two-up">
+                {landing.sections.map((section) => (
+                  <article className="content-card content-card--longform" key={section.heading}>
+                    <h3>{section.heading}</h3>
+                    {section.paragraphs.map((paragraph) => (
+                      <p key={paragraph}>{paragraph}</p>
+                    ))}
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="section">
+            <div className="container">
+              <div className="section-head">
+                <p className="eyebrow">Google AI için kısa cevaplar</p>
+                <h2>Net, kısa ve özetlenebilir bilgi blokları</h2>
+              </div>
+              <div className="card-grid three-up">
+                {landing.answerBlocks.map((item) => (
+                  <article className="content-card" key={item.question}>
+                    <h3>{item.question}</h3>
+                    <p>{item.answer}</p>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="section section--tint">
+            <div className="container">
+              <div className="section-head">
+                <p className="eyebrow">Sık sorulanlar</p>
+                <h2>{landing.keyword} hakkında sorular</h2>
+              </div>
+              <div className="faq-list">
+                {landing.faqs.map((faq) => (
+                  <article key={faq.question} className="faq-item">
+                    <h3>{faq.question}</h3>
+                    <p>{faq.answer}</p>
+                  </article>
+                ))}
+              </div>
+              <div className="cta-band cta-band--accent">
+                <div>
+                  <h3>{landing.keyword} için hemen aksiyon al</h3>
+                  <p>Telefon numaramız ve WhatsApp hattımız üzerinden birkaç saniyede teklif alabilir, kurye yönlendirmesini başlatabilirsiniz.</p>
+                </div>
+                <div className="hero__actions">
+                  <a className="primary-button" href={siteConfig.whatsappHref} target="_blank" rel="noreferrer">Şimdi WhatsApp'tan Yaz</a>
+                  <a className="ghost-button" href={siteConfig.phoneHref}>Hemen Ara</a>
+                </div>
+              </div>
+            </div>
+          </section>
+        </Layout>
+      </>
+    );
+  }
+
   const path = `/${landing.slug}`;
   const pageUrl = `${siteConfig.domain}${path}`;
   const nearbyLandings = getNearbyLandings(landing);
@@ -204,7 +329,7 @@ export default function ProgrammaticLandingPage({ landing }: LandingPageProps) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => ({
-  paths: getAllProgrammaticLandings().map((landing) => ({
+  paths: [...getAllProgrammaticLandings(), ...priorityKeywordLandings].map((landing) => ({
     params: { landing: landing.slug }
   })),
   fallback: false
@@ -212,10 +337,12 @@ export const getStaticPaths: GetStaticPaths = async () => ({
 
 export const getStaticProps: GetStaticProps<LandingPageProps> = async ({ params }) => {
   const slug = String(params?.landing || '');
-  const landing = getProgrammaticLandingBySlug(slug);
+  const landing = getProgrammaticLandingBySlug(slug) || getPriorityKeywordLandingBySlug(slug);
 
   if (!landing) {
-    throw new Error('Landing not found');
+    return {
+      notFound: true
+    };
   }
 
   return {

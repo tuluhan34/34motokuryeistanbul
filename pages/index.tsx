@@ -1,11 +1,13 @@
 import Link from 'next/link';
+import { LeadEstimator } from '../components/LeadEstimator';
 import { QuickConversionSection } from '../components/QuickConversionSection';
 import { Layout } from '../components/Layout';
 import { Schema } from '../components/Schema';
 import { SeoHead } from '../components/SeoHead';
 import { districts } from '../lib/geoData';
 import { buildKeywordSet } from '../lib/keywordData';
-import { breadcrumbSchema, faqSchema, organizationSchema, serviceSchema, webPageSchema, websiteSchema } from '../lib/seo';
+import { competitorAudits, competitorCommonFeatures, competitorSnapshots, implementedAdvantageChecklist, missingCompetitorFeatures, reviewHighlights, trustBadges, upgradedFeatureChecklist } from '../lib/marketIntel';
+import { breadcrumbSchema, faqSchema, organizationSchema, reviewSchema, serviceSchema, webPageSchema, websiteSchema } from '../lib/seo';
 import { homepageFaqs, services, siteConfig, valuePoints } from '../lib/siteData';
 
 const socialProofStats = [
@@ -192,6 +194,7 @@ export default function HomePage() {
     websiteSchema,
     webPageSchema(homepageTitle, homepageDescription, siteConfig.domain, homepageKeywords),
     serviceSchema('İstanbul Moto Kurye Hizmeti', 'İstanbul genelinde acil, express, VIP ve şehir içi moto kurye hizmetleri.', siteConfig.domain),
+    reviewSchema(homepageTitle, homepageDescription, siteConfig.domain),
     faqSchema(homepageFaqs),
     breadcrumbSchema([
       { name: 'Ana Sayfa', url: siteConfig.domain }
@@ -371,6 +374,87 @@ export default function HomePage() {
           </div>
         </section>
 
+        <section className="section">
+          <div className="container">
+            <LeadEstimator />
+          </div>
+        </section>
+
+        <section className="section section--tint">
+          <div className="container split-panel">
+            <div>
+              <p className="eyebrow">Rakip analizi</p>
+              <h2>Rakiplerde tekrar eden ozellikleri daha guclu hale getirdik</h2>
+              <p>
+                Kamuya acik rakip snippet ve marka sayfalarinda tekrar eden kaliplar; hizli telefon gorunurlugu, fiyat hesapla akisi, ilce bazli sayfalar ve ayni gun teslimat mesaji etrafinda toplaniyor. Biz bunu tek tek degil, tum yapida birlestiriyoruz.
+              </p>
+            </div>
+            <div className="check-list">
+              {competitorCommonFeatures.slice(0, 6).map((item) => (
+                <span key={item}>{item}</span>
+              ))}
+            </div>
+          </div>
+          <div className="container section-stack-top">
+            <div className="card-grid three-up">
+              {competitorSnapshots.slice(0, 6).map((item) => (
+                <article key={item.name} className="content-card">
+                  <p className="eyebrow">{item.name}</p>
+                  <h3>{item.positioning}</h3>
+                  <p>{item.repeatedFeatures.join(', ')}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section">
+          <div className="container split-panel">
+            <div>
+              <p className="eyebrow">Kapatılan boşluklar</p>
+              <h2>Rakiplerde görülen ama artık daha gelişmiş haliyle bizde olan alanlar</h2>
+              <p>
+                Sadece aynı özellikleri listelemek yerine, bunları daha güçlü SEO, daha iyi CTA ve daha net operasyon diliyle tek yapıda birleştirdik.
+              </p>
+            </div>
+            <div className="check-list">
+              {missingCompetitorFeatures.map((item) => (
+                <span key={item}>{item}</span>
+              ))}
+            </div>
+          </div>
+          <div className="container section-stack-top">
+            <div className="card-grid three-up">
+              {upgradedFeatureChecklist.map((item) => (
+                <article key={item} className="content-card advantage-card">
+                  <h3>Yeni katman</h3>
+                  <p>{item}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section section--tint">
+          <div className="container">
+            <div className="section-head">
+              <p className="eyebrow">Canlı pazar özeti</p>
+              <h2>Rakiplerin site ve GBP sinyallerinden çıkan tablo</h2>
+              <p>Telefon, teklif, hizmet çeşitliliği ve lokal görünürlük hangi markada nasıl öne çıkıyor sorusunun kısa özetini burada topladık.</p>
+            </div>
+            <div className="card-grid three-up">
+              {competitorAudits.slice(0, 6).map((audit) => (
+                <article key={audit.name} className="content-card content-card--longform">
+                  <p className="eyebrow">{audit.name}</p>
+                  <h3>{audit.domain}</h3>
+                  <p>{audit.siteSignals.join(', ')}.</p>
+                  <p>{audit.gbpSignals.join(', ')}.</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section className="section section--tint">
           <div className="container split-panel">
             <div>
@@ -393,6 +477,11 @@ export default function HomePage() {
                 <span key={item}>{item}</span>
               ))}
             </div>
+          </div>
+          <div className="container section-stack-top badge-strip">
+            {trustBadges.map((item) => (
+              <span key={item} className="trust-badge">{item}</span>
+            ))}
           </div>
         </section>
 
@@ -418,6 +507,14 @@ export default function HomePage() {
                 <article key={item.title} className="content-card advantage-card">
                   <h3>{item.title}</h3>
                   <p>{item.text}</p>
+                </article>
+              ))}
+            </div>
+            <div className="card-grid two-up section-stack-top">
+              {implementedAdvantageChecklist.slice(0, 4).map((item) => (
+                <article key={item} className="content-card advantage-card">
+                  <h3>Ekstra avantaj</h3>
+                  <p>{item}</p>
                 </article>
               ))}
             </div>
@@ -532,11 +629,13 @@ export default function HomePage() {
                   <span>{item.title}</span>
                 </article>
               ))}
-              <article className="content-card review-card">
-                <p>“15+ yil tecrube, hizli geri donus ve ulasilabilir ekip sayesinde gonderilerimizi guvenle teslim ediyoruz.”</p>
-                <strong>Musteri Deneyimi</strong>
-                <span>Hizli iletisim ve duzenli operasyon</span>
-              </article>
+              {reviewHighlights.map((item) => (
+                <article className="content-card review-card" key={item.author}>
+                  <p>“{item.text}”</p>
+                  <strong>{item.author}</strong>
+                  <span>{item.role}</span>
+                </article>
+              ))}
             </div>
           </div>
         </section>

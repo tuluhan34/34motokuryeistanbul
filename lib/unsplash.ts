@@ -9,9 +9,9 @@ export type GalleryPhoto = {
 
 const fallbackPhoto = (query: string, index: number): GalleryPhoto => ({
   id: `fallback-${index}`,
-  url: `https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=1400&q=80&sig=${index}`,
-  thumb: `https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=900&q=80&sig=${index}`,
-  alt: `${query} görseli`,
+  url: `https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1400&q=80&sig=${index}`,
+  thumb: `https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=900&q=80&sig=${index}`,
+  alt: `${query} icin yuk tasiyan motor kurye gorseli`,
   creditName: 'Unsplash',
   creditUrl: 'https://unsplash.com'
 });
@@ -19,13 +19,14 @@ const fallbackPhoto = (query: string, index: number): GalleryPhoto => ({
 export const fetchUnsplashPhotos = async (query: string, count = 6): Promise<GalleryPhoto[]> => {
   const accessKey = process.env.UNSPLASH_ACCESS_KEY;
   const isStaticExport = process.env.NEXT_OUTPUT_MODE === 'export';
+  const curatedQuery = `${query} motorcycle courier cargo box parked no rider no people`;
 
   if (!accessKey || isStaticExport) {
     return Array.from({ length: count }, (_, index) => fallbackPhoto(query, index));
   }
 
   const response = await fetch(
-    `https://api.unsplash.com/search/photos?query=${encodeURIComponent(`${query} no people`)}&per_page=${count}&orientation=landscape&content_filter=high`,
+    `https://api.unsplash.com/search/photos?query=${encodeURIComponent(curatedQuery)}&per_page=${count}&orientation=landscape&content_filter=high`,
     {
       headers: {
         Authorization: `Client-ID ${accessKey}`,
@@ -55,7 +56,7 @@ export const fetchUnsplashPhotos = async (query: string, count = 6): Promise<Gal
     id: item.id || `photo-${index}`,
     url: item.urls.regular,
     thumb: item.urls.small,
-    alt: item.alt_description || `${query} görseli`,
+    alt: item.alt_description || `${query} icin yuk tasiyan motor kurye gorseli`,
     creditName: item.user.name,
     creditUrl: `${item.user.links.html}?utm_source=34motokuryeistanbul&utm_medium=referral`
   }));

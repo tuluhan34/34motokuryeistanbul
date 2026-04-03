@@ -71,6 +71,16 @@ const commercialKeywords = [
   'özel şoför istanbul',
   'vale hizmeti',
   'şoför destek hizmeti',
+  'eczane kurye',
+  'gümrük kurye',
+  'ordino kurye',
+  'gidiş dönüş kurye',
+  'randevulu gönderim',
+  'uçak kargo',
+  'uçak kurye',
+  'minivan kurye',
+  'panelvan kurye',
+  'kamyonet kurye',
   'kurye firması',
   'kurye şirketi',
   'bireysel kurye',
@@ -108,6 +118,13 @@ const informationalKeywords = [
 ];
 
 const mapCommercialPath = (keyword: string) => {
+  if (keyword.includes('eczane')) return '/hizmetler/eczane-kurye';
+  if (keyword.includes('gümrük') || keyword.includes('gumruk') || keyword.includes('ordino') || keyword.includes('atr')) return '/hizmetler/gumruk-kurye';
+  if (keyword.includes('gidiş dönüş') || keyword.includes('gidis donus') || keyword.includes('dönüşlü') || keyword.includes('donuslu')) return '/hizmetler/gidis-donus-kurye';
+  if (keyword.includes('randevulu') || keyword.includes('saatli teslimat') || keyword.includes('planlı kurye') || keyword.includes('planli kurye')) return '/hizmetler/randevulu-gonderim';
+  if (keyword.includes('uçak') || keyword.includes('ucak') || keyword.includes('hava kargo')) return '/hizmetler/ucak-kargo';
+  if (keyword.includes('minivan') || keyword.includes('panelvan')) return '/hizmetler/minivan-panelvan';
+  if (keyword.includes('kamyonet')) return '/hizmetler/kamyonet-kurye';
   if (keyword.includes('şehirler arası') || keyword.includes('şehir dışı') || keyword.includes('istanbul çıkışlı')) return '/hizmetler/sehirler-arasi-kurye';
   if (keyword.includes('vale') || keyword.includes('şoför') || keyword.includes('sofor')) return '/hizmetler/vale-ozel-sofor';
   if (keyword.includes('express')) return '/hizmetler/express-kurye';

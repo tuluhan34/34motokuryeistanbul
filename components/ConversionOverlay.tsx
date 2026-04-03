@@ -86,13 +86,13 @@ export function ConversionOverlay() {
   return (
     <>
       <div className="live-order-toast" aria-live="polite">
-        <strong>Canli talep</strong>
+        <strong>Ornek operasyon</strong>
         <span>{currentLiveOrder.route}</span>
         <small>{currentLiveOrder.time}</small>
       </div>
 
       <div className="live-order-toast live-order-toast--secondary" aria-live="polite">
-        <strong>Yeni canli talep</strong>
+        <strong>Yakin teslimat senaryosu</strong>
         <span>{liveOrders[(liveIndex + 3) % liveOrders.length].route}</span>
         <small>{liveOrders[(liveIndex + 3) % liveOrders.length].time}</small>
       </div>

@@ -1,7 +1,8 @@
 import { Layout } from '../components/Layout';
 import { Schema } from '../components/Schema';
 import { SeoHead } from '../components/SeoHead';
-import { breadcrumbSchema, organizationSchema } from '../lib/seo';
+import { reviewHighlights, trustBadges } from '../lib/marketIntel';
+import { breadcrumbSchema, organizationSchema, reviewSchema } from '../lib/seo';
 import { siteConfig } from '../lib/siteData';
 
 const referenceGroups = [
@@ -37,6 +38,7 @@ export default function ReferencesPage() {
       <Schema
         data={[
           organizationSchema,
+          reviewSchema('Referanslar ve Müşteri Yorumları', '34 Moto Kurye İstanbul için kurumsal kullanım senaryoları, müşteri yorumları ve güven sinyalleri.', `${siteConfig.domain}/referanslar`),
           breadcrumbSchema([
             { name: 'Ana Sayfa', url: siteConfig.domain },
             { name: 'Referanslar', url: `${siteConfig.domain}/referanslar` }
@@ -73,6 +75,29 @@ export default function ReferencesPage() {
             <div className="check-list">
               {trustSignals.map((item) => (
                 <span key={item}>{item}</span>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section">
+          <div className="container">
+            <div className="section-head">
+              <p className="eyebrow">Musteri yorumu</p>
+              <h2>Gorunur guven sinyalleri</h2>
+            </div>
+            <div className="card-grid three-up">
+              {reviewHighlights.map((item) => (
+                <article className="content-card review-card" key={item.author}>
+                  <p>“{item.text}”</p>
+                  <strong>{item.author}</strong>
+                  <span>{item.role}</span>
+                </article>
+              ))}
+            </div>
+            <div className="section-stack-top badge-strip">
+              {trustBadges.map((item) => (
+                <span key={item} className="trust-badge">{item}</span>
               ))}
             </div>
           </div>

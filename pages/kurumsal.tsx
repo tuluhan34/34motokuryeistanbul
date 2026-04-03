@@ -1,7 +1,8 @@
 import { Layout } from '../components/Layout';
 import { SeoHead } from '../components/SeoHead';
 import { Schema } from '../components/Schema';
-import { breadcrumbSchema, organizationSchema } from '../lib/seo';
+import { implementedAdvantageChecklist, trustBadges } from '../lib/marketIntel';
+import { breadcrumbSchema, organizationSchema, reviewSchema } from '../lib/seo';
 import { siteConfig } from '../lib/siteData';
 
 const trustBlocks = [
@@ -25,6 +26,7 @@ export default function CorporatePage() {
       <Schema
         data={[
           organizationSchema,
+          reviewSchema('Kurumsal Moto Kurye', 'Kurumsal firmalar için İstanbul içi düzenli kurye operasyonu ve şehir içi teslimat çözümleri.', `${siteConfig.domain}/kurumsal`),
           breadcrumbSchema([
             { name: 'Ana Sayfa', url: siteConfig.domain },
             { name: 'Kurumsal', url: `${siteConfig.domain}/kurumsal` }
@@ -66,6 +68,26 @@ export default function CorporatePage() {
                 </article>
               ))}
             </div>
+          </div>
+        </section>
+
+        <section className="section">
+          <div className="container split-panel">
+            <div>
+              <p className="eyebrow">Kurumsal fark</p>
+              <h2>Rakiplerin uzerine ekledigimiz operasyon katmani</h2>
+              <p>Kurumsal tarafta sadece hiz yetmez; surecin olculebilir, ulasilabilir ve raporlanabilir hissettirmesi gerekir.</p>
+            </div>
+            <div className="check-list">
+              {implementedAdvantageChecklist.slice(0, 5).map((item) => (
+                <span key={item}>{item}</span>
+              ))}
+            </div>
+          </div>
+          <div className="container section-stack-top badge-strip">
+            {trustBadges.map((item) => (
+              <span key={item} className="trust-badge">{item}</span>
+            ))}
           </div>
         </section>
       </Layout>

@@ -209,6 +209,90 @@ export const services: ServiceItem[] = [
       { question: 'Vale özel şoför hizmeti hangi durumlarda alınır?', answer: 'Kurumsal etkinlik, yönetici ulaşımı, araç teslim alma, misafir karşılama ve planlı operasyon günlerinde tercih edilir.' },
       { question: 'Bu hizmet kurye operasyonuyla birlikte planlanabilir mi?', answer: 'Evet. Ulaşım, evrak ve araç bağlantılı operasyonlar aynı plan içinde koordine edilebilir.' }
     ]
+  },
+  {
+    slug: 'eczane-kurye',
+    name: 'Eczane Kurye',
+    short: 'Eczane, ilaç ve sağlık ürünü teslimatlarında kontrollü hızlı kurye akışı.',
+    hero: 'Eczane kurye hizmeti; reçete, ilaç, medikal ürün ve sağlık destek gönderilerinde hız, dikkat ve doğru teslimat iletişimini bir arada sunar.',
+    intent: ['eczane kurye', 'ilac kurye', 'eczane teslimat', 'medikal teslimat'],
+    bullets: ['Eczane ve sağlık ürünü teslimatlarına uygun operasyon dili', 'Hızlı pickup ve telefon ile net bilgilendirme', 'İstanbul içi aynı gün veya acil sağlık odaklı teslim planı'],
+    faqs: [
+      { question: 'Eczane kurye hangi gönderiler için uygundur?', answer: 'İlaç, medikal ürün, reçete ve sağlık destek paketleri için uygundur.' },
+      { question: 'Eczane kurye aynı gün teslim yapar mı?', answer: 'Lokasyon ve saat uygunluğuna göre aynı gün teslim planı oluşturulabilir.' }
+    ]
+  },
+  {
+    slug: 'gumruk-kurye',
+    name: 'Gümrük Kurye',
+    short: 'Gümrük evrakları, ATR, ordino ve ithalat-ihracat dokümanları için süreç odaklı kurye.',
+    hero: 'Gümrük kurye hizmetinde zaman kadar evrak doğruluğu, doğru teslim kişisi ve planlı hareket etmek de kritik olduğundan operasyon süreci kontrollü ilerler.',
+    intent: ['gumruk kurye', 'gumruk evrak kurye', 'ordino kurye', 'atr kurye'],
+    bullets: ['Gümrük ve lojistik evraklarında süreç odaklı teslim', 'İthalat-ihracat dosyaları için hızlı yönlendirme', 'Telefon ve WhatsApp ile kısa sürede teklif akışı'],
+    faqs: [
+      { question: 'Gümrük kurye ne taşır?', answer: 'ATR, ordino, konşimento, uygunluk evrakı ve ithalat-ihracat sürecine bağlı resmi belgeler taşınabilir.' },
+      { question: 'Gümrük kurye için hız neden önemlidir?', answer: 'Evrak gecikmesi operasyon zincirini etkilediği için pickup ve teslim zamanlaması önceden netleştirilir.' }
+    ]
+  },
+  {
+    slug: 'gidis-donus-kurye',
+    name: 'Gidiş Dönüş Kurye',
+    short: 'Birden fazla imza, onay veya belge alımı gereken işlerde çift yönlü kurye desteği.',
+    hero: 'Gidiş dönüş kurye hizmeti; teslim, onay, imza ve geri evrak alma gerektiren operasyonlarda tek akışta iki yönlü planlama sağlar.',
+    intent: ['gidis donus kurye', 'imzali evrak kurye', 'cift yon kurye', 'donuslu kurye'],
+    bullets: ['Teslim + imza + geri dönüş evrak akışı', 'Resmi ve kurumsal işlerde kontrollü operasyon', 'Tek kurye planı ile birden fazla adımı birleştiren model'],
+    faqs: [
+      { question: 'Gidiş dönüş kurye ne zaman gerekir?', answer: 'Belge teslim edip imzalı evrak geri alınacaksa veya farklı adımlı resmi süreç yürütülüyorsa tercih edilir.' },
+      { question: 'Bu hizmet kurumsal firmalar için uygun mu?', answer: 'Evet. Hukuk, finans ve resmi evrak yoğun çalışan ekipler için uygundur.' }
+    ]
+  },
+  {
+    slug: 'randevulu-gonderim',
+    name: 'Randevulu Gönderim',
+    short: 'Belirli saat aralığında pickup ve teslimat gerektiren operasyonlar için planlı kurye.',
+    hero: 'Randevulu gönderim hizmeti; belirli saat, belirli kişi veya kapalı teslim penceresi olan gönderilerde zaman odaklı, planlı kurye akışı sağlar.',
+    intent: ['randevulu gonderim', 'saatli teslimat', 'planli kurye', 'randevulu kurye'],
+    bullets: ['Saat penceresine uygun pickup ve teslim planı', 'Kurumsal randevu, toplantı ve özel teslim senaryoları', 'Planlı operasyon gerektiren gönderiler için uygun model'],
+    faqs: [
+      { question: 'Randevulu gönderim hangi durumlarda kullanılır?', answer: 'Belirli saat aralığında teslim edilmesi gereken evrak, paket veya kurumsal gönderilerde kullanılır.' },
+      { question: 'Randevulu gönderimde değişiklik yapılabilir mi?', answer: 'Operasyon başlamadan önce saat ve teslim detayı uygunluk dahilinde güncellenebilir.' }
+    ]
+  },
+  {
+    slug: 'ucak-kargo',
+    name: 'Uçak Kargo',
+    short: 'İstanbul çıkışlı şehir dışı acil gönderiler için hava yolu bağlantılı hız odaklı teslimat.',
+    hero: 'Uçak kargo hizmeti; İstanbul çıkışlı zaman kritik şehir dışı evrak, paket ve özel gönderilerde hava yolu bağlantılı hızlı teslimat planı oluşturur.',
+    intent: ['ucak kargo', 'ucak kurye', 'hava kargo', 'hizli sehir disi teslimat'],
+    bullets: ['Hava yolu bağlantılı hızlı teslim planlaması', 'Şehir dışı acil evrak ve paket akışı', 'Kurumsal ve özel teslimatlar için kontrollü operasyon'],
+    faqs: [
+      { question: 'Uçak kargo hangi gönderiler için uygundur?', answer: 'Zaman kritik şehir dışı evrak, küçük paket ve özel kurumsal gönderiler için uygundur.' },
+      { question: 'Uçak kargo ile şehirler arası kurye farkı nedir?', answer: 'Uçak kargoda hava yolu bağlantısı öne çıkar; şehirler arası kurye ise rota ve araç tipine göre farklı planlanır.' }
+    ]
+  },
+  {
+    slug: 'minivan-panelvan',
+    name: 'Minivan Panelvan',
+    short: 'Orta hacimli koliler, çoklu teslimatlar ve kurumsal dağıtımlar için araç destekli teslimat.',
+    hero: 'Minivan panelvan hizmeti; moto kurye ile taşınamayacak ölçekteki koli, ekipman ve toplu paket gönderilerinde güvenli araçlı taşıma sunar.',
+    intent: ['minivan kurye', 'panelvan kurye', 'orta hacimli teslimat', 'kurumsal dagitim'],
+    bullets: ['Orta hacimli koli ve paketler için uygun araç tipi', 'Kurumsal toplu dağıtım operasyonlarına uygun model', 'İstanbul içi planlı çoklu teslimat akışı'],
+    faqs: [
+      { question: 'Minivan panelvan hangi gönderiler için uygundur?', answer: 'Orta hacimli koli, ekipman, çoklu e-ticaret paketi ve kurumsal dağıtımlar için uygundur.' },
+      { question: 'Bu hizmet aynı gün teslim yapılır mı?', answer: 'Rota ve hacme göre aynı gün teslim planı oluşturulabilir.' }
+    ]
+  },
+  {
+    slug: 'kamyonet-kurye',
+    name: 'Kamyonet Kurye',
+    short: 'Büyük hacimli, ağır veya çoklu yükler için daha yüksek taşıma kapasiteli kurye çözümü.',
+    hero: 'Kamyonet kurye hizmeti; büyük koli, ekipman, fuar malzemesi ve yüksek hacimli kurumsal gönderiler için İstanbul içi kontrollü taşıma çözümü sağlar.',
+    intent: ['kamyonet kurye', 'buyuk hacimli kurye', 'agir yuk teslimat', 'kamyonet teslimat'],
+    bullets: ['Yüksek hacimli ve ağır gönderiler için uygun taşıma', 'Kurumsal operasyon, etkinlik ve toplu sevkiyat desteği', 'Planlı pickup ve teslimat ile kontrollü süreç'],
+    faqs: [
+      { question: 'Kamyonet kurye hangi işlerde kullanılır?', answer: 'Büyük koli, ekipman, çoklu yük ve motor/otomobil ile taşınması uygun olmayan gönderilerde kullanılır.' },
+      { question: 'Kamyonet kurye için teklif nasıl alınır?', answer: 'Yük ölçüsü, pickup noktası ve teslim adresi iletilerek telefon veya WhatsApp üzerinden hızlı teklif alınabilir.' }
+    ]
   }
 ];
 

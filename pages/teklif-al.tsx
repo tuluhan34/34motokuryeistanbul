@@ -102,6 +102,13 @@ export default function QuotePage() {
                   <option value="medikal">Medikal</option>
                   <option value="e-ticaret">E-Ticaret</option>
                   <option value="arabalı-kurye">Arabalı Kurye</option>
+                  <option value="eczane-kurye">Eczane Kurye</option>
+                  <option value="gumruk-kurye">Gümrük Kurye</option>
+                  <option value="gidis-donus-kurye">Gidiş Dönüş Kurye</option>
+                  <option value="randevulu-gonderim">Randevulu Gönderim</option>
+                  <option value="ucak-kargo">Uçak Kargo</option>
+                  <option value="minivan-panelvan">Minivan Panelvan</option>
+                  <option value="kamyonet-kurye">Kamyonet Kurye</option>
                 </select>
               </label>
               <label>

@@ -1,4 +1,5 @@
 import { keywordString } from './keywordData';
+import { aggregateReviewData, reviewHighlights } from './marketIntel';
 import { siteConfig } from './siteData';
 
 const logoUrl = `${siteConfig.domain}${siteConfig.logoPath}`;
@@ -72,6 +73,27 @@ export const organizationSchema = {
   ],
   openingHours: 'Mo-Su 00:00-23:59',
   sameAs: [siteConfig.whatsappHref],
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: aggregateReviewData.ratingValue,
+    reviewCount: aggregateReviewData.reviewCount,
+    bestRating: aggregateReviewData.bestRating,
+    worstRating: aggregateReviewData.worstRating
+  },
+  review: reviewHighlights.map((item) => ({
+    '@type': 'Review',
+    author: {
+      '@type': 'Person',
+      name: item.author
+    },
+    reviewBody: item.text,
+    reviewRating: {
+      '@type': 'Rating',
+      ratingValue: item.rating,
+      bestRating: 5,
+      worstRating: 1
+    }
+  })),
   brand: {
     '@type': 'Brand',
     name: siteConfig.brand,
@@ -142,6 +164,108 @@ export const serviceSchema = (name: string, description: string, url: string) =>
     name: 'İstanbul'
   },
   url
+});
+
+export const courierServiceSchema = (name: string, description: string, url: string, areaServed: string | string[] = 'İstanbul') => ({
+  '@context': 'https://schema.org',
+  '@type': 'CourierOrDeliveryService',
+  name,
+  description,
+  url,
+  provider: {
+    '@id': `${siteConfig.domain}/#organization`
+  },
+  areaServed: (Array.isArray(areaServed) ? areaServed : [areaServed]).map((item) => ({
+    '@type': 'AdministrativeArea',
+    name: item
+  })),
+  serviceOutput: 'Acil kurye, express kurye, aynı gün teslimat ve şehir içi teslimat',
+  availableChannel: {
+    '@type': 'ServiceChannel',
+    serviceUrl: url,
+    availableLanguage: ['tr-TR'],
+    servicePhone: siteConfig.phoneHref.replace('tel:', ''),
+    serviceSmsNumber: '+905303219004'
+  }
+});
+
+export const localBusinessSchema = (name: string, description: string, url: string, areaServed: string | string[] = 'İstanbul') => ({
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  additionalType: 'https://schema.org/CourierOrDeliveryService',
+  name,
+  description,
+  url,
+  telephone: '+905303219004',
+  email: siteConfig.email,
+  areaServed: Array.isArray(areaServed) ? areaServed : [areaServed],
+  image: logoUrl,
+  logo: logoUrl,
+  openingHours: 'Mo-Su 00:00-23:59',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'İstanbul',
+    addressCountry: 'TR'
+  },
+  contactPoint: [
+    {
+      '@type': 'ContactPoint',
+      contactType: 'customer service',
+      telephone: '+905303219004',
+      url: siteConfig.whatsappHref,
+      availableLanguage: ['tr-TR']
+    }
+  ]
+});
+
+export const productSchema = (name: string, description: string, url: string) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name,
+  description,
+  image: logoUrl,
+  brand: {
+    '@type': 'Brand',
+    name: siteConfig.brand
+  },
+  offers: {
+    '@type': 'Offer',
+    availability: 'https://schema.org/InStock',
+    priceCurrency: 'TRY',
+    url
+  }
+});
+
+export const reviewSchema = (name: string, description: string, url: string) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name,
+  description,
+  url,
+  provider: {
+    '@id': `${siteConfig.domain}/#organization`
+  },
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: aggregateReviewData.ratingValue,
+    reviewCount: aggregateReviewData.reviewCount,
+    bestRating: aggregateReviewData.bestRating,
+    worstRating: aggregateReviewData.worstRating
+  },
+  review: reviewHighlights.map((item) => ({
+    '@type': 'Review',
+    author: {
+      '@type': 'Person',
+      name: item.author
+    },
+    reviewBody: item.text,
+    reviewRating: {
+      '@type': 'Rating',
+      ratingValue: item.rating,
+      bestRating: 5,
+      worstRating: 1
+    }
+  }))
 });
 
 export const breadcrumbSchema = (items: Array<{ name: string; url: string }>) => ({

@@ -28,9 +28,34 @@ const buildNeighborhoodFaqs = (district: string, neighborhood: string) => [
   }
 ];
 
+const buildNeighborhoodSections = (district: string, neighborhood: NeighborhoodItem) => [
+  {
+    heading: `${neighborhood.name} içinde kurye ihtiyacı nasıl oluşur?`,
+    paragraphs: [
+      `${neighborhood.name} mahallesi için kurye aramaları çoğu zaman genel bilgi amaçlı değil, doğrudan aksiyon amaçlıdır. Kullanıcı adresinden alım yapacak, belirli bir noktaya hızlı teslim sağlayacak ve mümkünse kısa sürede fiyat verecek bir ekip arar. Bu yüzden mahalle sayfası sadece anahtar kelime tekrarından ibaret olamaz; ${neighborhood.name} için gerçek pickup ve teslimat beklentisini anlatmalıdır.`,
+      `${neighborhood.summary} ${district} ilçesine bağlı bu mahalle için hazırlanan içerik, mahalle adı ile ilçe adını birlikte kullanarak daha güçlü lokal alaka kurar. Böylece ${neighborhood.name} kurye, ${district} ${neighborhood.name} acil kurye ve benzeri aramalarda sayfanın niyete daha iyi cevap vermesi hedeflenir.`
+    ]
+  },
+  {
+    heading: `${neighborhood.name} mahallesinde hangi gönderiler öne çıkar?`,
+    paragraphs: [
+      `${neighborhood.name} içinde evrak, küçük paket, e-ticaret siparişi, teknik parça ve aynı gün teslim edilmesi gereken özel gönderiler sıklıkla talep edilir. Mahalle bazlı içerikte bu senaryoları görünür kılmak, kullanıcının kendi ihtiyacını daha hızlı tanımasını sağlar.`,
+      `${district} bağlantılı rota planı özellikle yakın mahalle geçişleri, ilçe merkezi teslimleri ve yakalar arası bağlantılarda kritik hale gelir. Bu nedenle sayfa sadece ${neighborhood.name} mahallesine odaklanmakla kalmaz; pickup sonrası teslimatın hangi operasyon mantığıyla ilerlediğini de kısaca açıklar.`
+    ]
+  },
+  {
+    heading: `${neighborhood.name} sayfası neden dönüşüm üretir?`,
+    paragraphs: [
+      `Mahalle bazlı arama yapan kullanıcı, genel bir ana sayfa yerine kendi bölgesini doğrudan gören bir içerikte daha hızlı karar verir. ${neighborhood.name} özelinde hazırlanan soru-cevap blokları, CTA alanları ve ilçe bağlantıları bu kararı desteklemek için kullanılır.`,
+      `Telefon, WhatsApp ve teklif formu üçlüsü burada da görünür tutulur; çünkü mahalle sayfalarının amacı yalnızca index almak değil, yüksek niyetli lokal trafiği hızlı şekilde dönüşüme taşımaktır.`
+    ]
+  }
+];
+
 export default function NeighborhoodPage({ district, neighborhood }: NeighborhoodPageProps) {
   const path = `/istanbul/${district.slug}/${neighborhood.slug}`;
   const faqs = buildNeighborhoodFaqs(district.name, neighborhood.name);
+  const sections = buildNeighborhoodSections(district.name, neighborhood);
   const description = `${neighborhood.name} ${district.name} kurye hizmeti, hizli pickup ve mahalle bazli teslimat detaylari. ${neighborhood.summary}`;
   const pageKeywords = buildKeywordSet(
     [`${neighborhood.name} kurye`, `${district.name} ${neighborhood.name} kurye`, `${district.name} ${neighborhood.name} acil kurye`, `${district.name} ${neighborhood.name} moto kurye`, `${district.name} ${neighborhood.name} express kurye`],
@@ -87,6 +112,25 @@ export default function NeighborhoodPage({ district, neighborhood }: Neighborhoo
         <section className="section section--tint">
           <div className="container">
             <div className="section-head">
+              <p className="eyebrow">Uzun form mahalle içeriği</p>
+              <h2>{neighborhood.name} için detaylı lokal açıklamalar</h2>
+            </div>
+            <div className="card-grid three-up">
+              {sections.map((section) => (
+                <article className="content-card content-card--longform" key={section.heading}>
+                  <h3>{section.heading}</h3>
+                  {section.paragraphs.map((paragraph) => (
+                    <p key={paragraph}>{paragraph}</p>
+                  ))}
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section section--tint">
+          <div className="container">
+            <div className="section-head">
               <p className="eyebrow">İlgili mahalleler</p>
               <h2>{district.name} içindeki diğer lokal sayfalar</h2>
             </div>
@@ -98,6 +142,21 @@ export default function NeighborhoodPage({ district, neighborhood }: Neighborhoo
                   <Link href={`/istanbul/${district.slug}/${item.slug}`}>Mahalle sayfasını aç</Link>
                 </article>
               ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section">
+          <div className="container">
+            <div className="cta-band cta-band--dense">
+              <div>
+                <h3>{neighborhood.name} için şimdi kurye çağır</h3>
+                <p>Mahalleden alım, ilçe içi teslimat veya farklı yakaya gönderi fark etmeksizin pickup ve teslim bilgisini paylaşın; hızlı teklif akışı başlasın.</p>
+              </div>
+              <div className="hero__actions">
+                <a className="primary-button" href={siteConfig.whatsappHref} target="_blank" rel="noreferrer">WhatsApp ile başla</a>
+                <a className="ghost-button" href={siteConfig.phoneHref}>Hemen ara</a>
+              </div>
             </div>
           </div>
         </section>
@@ -138,8 +197,11 @@ export const getStaticProps: GetStaticProps<NeighborhoodPageProps> = async ({ pa
   const result = getNeighborhoodBySlug(districtSlug, neighborhoodSlug);
 
   if (!result) {
-    throw new Error('Neighborhood not found');
+    return {
+      notFound: true
+    };
   }
+
 
   return {
     props: result

@@ -30,6 +30,12 @@ const slugify = (value: string) =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
 
+const isPlaceholderNeighborhood = (value: string) => {
+  const normalized = value.trim().toLocaleLowerCase('tr-TR');
+
+  return normalized === 'örnek mah' || normalized === 'ornek mah' || normalized.startsWith('örnek ') || normalized.startsWith('ornek ');
+};
+
 const neighborhood = (name: string, district: string): NeighborhoodItem => ({
   slug: slugify(name),
   name,
@@ -98,12 +104,14 @@ export const districts: DistrictSeoItem[] = Object.entries(rawIstanbulDistricts)
       highlights: ['İlçe bazlı hızlı pickup', 'Evrak ve paket teslim akışı', 'Telefon ve WhatsApp ile hızlı teklif']
     };
 
+    const filteredNeighborhoods = neighborhoods.filter((item) => !isPlaceholderNeighborhood(item));
+
     return {
       slug: slugify(name),
       name,
       summary: manual.summary,
       highlights: manual.highlights,
-      neighborhoods: neighborhoods.map((item) => neighborhood(item, name))
+      neighborhoods: filteredNeighborhoods.map((item) => neighborhood(item, name))
     };
   })
   .sort((left, right) => left.name.localeCompare(right.name, 'tr'));

@@ -1,7 +1,8 @@
 import { Layout } from '../components/Layout';
 import { Schema } from '../components/Schema';
 import { SeoHead } from '../components/SeoHead';
-import { breadcrumbSchema, organizationSchema } from '../lib/seo';
+import { competitorAudits, gbpActionPlan, gbpContentAssets, gbpProfileDescription, gbpReadyPostCaptions, gbpServiceList, reviewRequestFlow, weeklyGbpPostPlan } from '../lib/marketIntel';
+import { breadcrumbSchema, organizationSchema, reviewSchema } from '../lib/seo';
 import { siteConfig } from '../lib/siteData';
 
 const businessSignals = [
@@ -52,6 +53,7 @@ export default function GoogleBusinessPage() {
       <Schema
         data={[
           organizationSchema,
+          reviewSchema('Google İşletme ve Yerel Görünürlük', '34 Moto Kurye İstanbul için Google İşletme stratejisi, yerel görünürlük planı ve yorum yönetimi.', `${siteConfig.domain}/google-isletme`),
           breadcrumbSchema([
             { name: 'Ana Sayfa', url: siteConfig.domain },
             { name: 'Konum ve İşletme Bilgileri', url: `${siteConfig.domain}/google-isletme` }
@@ -102,6 +104,92 @@ export default function GoogleBusinessPage() {
         </section>
 
         <section className="section">
+          <div className="container card-grid two-up">
+            <article className="content-card content-card--longform">
+              <p className="eyebrow">Hazır açıklama</p>
+              <h3>Google İşletme profil açıklaması</h3>
+              <p>{gbpProfileDescription}</p>
+            </article>
+            <article className="content-card">
+              <p className="eyebrow">Hizmet listesi</p>
+              <h3>Profilde açılması gereken hizmetler</h3>
+              <div className="check-list check-list--flat">
+                {gbpServiceList.map((item) => (
+                  <span key={item}>{item}</span>
+                ))}
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section className="section">
+          <div className="container split-panel">
+            <div>
+              <p className="eyebrow">GBP aksiyon plani</p>
+              <h2>Google Business Profile tarafinda uygulanacak net adimlar</h2>
+              <p>Yerel siralamada kazanc, tek seferlik optimizasyondan degil; profil, yorum ve post ritminin birlikte yonetilmesinden gelir.</p>
+            </div>
+            <div className="check-list">
+              {gbpActionPlan.map((item) => (
+                <span key={item}>{item}</span>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section section--tint">
+          <div className="container card-grid two-up">
+            <article className="content-card content-card--longform">
+              <p className="eyebrow">Haftalik post takvimi</p>
+              <h3>Surekli gorunurluk icin post ritmi</h3>
+              {weeklyGbpPostPlan.map((item) => (
+                <p key={item}>{item}</p>
+              ))}
+            </article>
+            <article className="content-card content-card--longform">
+              <p className="eyebrow">Yorum stratejisi</p>
+              <h3>Google yorumlarini yerel SEO sinyaline cevirme akisi</h3>
+              {reviewRequestFlow.map((item) => (
+                <p key={item}>{item}</p>
+              ))}
+            </article>
+          </div>
+        </section>
+
+        <section className="section">
+          <div className="container split-panel">
+            <div>
+              <p className="eyebrow">Hazır GBP içerikleri</p>
+              <h2>İşletme profilinde doğrudan kullanılabilecek metin iskeletleri</h2>
+              <p>Profil açıklaması, gönderi metni ve soru-cevap tarafında tutarlı marka dili kullanmak lokal görünürlüğü güçlendirir.</p>
+            </div>
+            <div className="check-list">
+              {gbpContentAssets.map((item) => (
+                <span key={item}>{item}</span>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section section--tint">
+          <div className="container">
+            <div className="section-head">
+              <p className="eyebrow">Rakiplerden çıkan GBP dersleri</p>
+              <h2>Yerel görünürlükte rakiplerin kullandığı sinyaller</h2>
+            </div>
+            <div className="card-grid three-up">
+              {competitorAudits.slice(0, 6).map((item) => (
+                <article key={item.name} className="content-card">
+                  <p className="eyebrow">{item.name}</p>
+                  <h3>{item.name} için öne çıkan GBP yaklaşımı</h3>
+                  <p>{item.gbpSignals.join(', ')}.</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section">
           <div className="container">
             <div className="section-head">
               <p className="eyebrow">Örnek duyurular</p>
@@ -110,6 +198,22 @@ export default function GoogleBusinessPage() {
             <div className="card-grid three-up">
               {businessPosts.map((post) => (
                 <article className="content-card" key={post}>
+                  <p>{post}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section section--tint">
+          <div className="container">
+            <div className="section-head">
+              <p className="eyebrow">Hazır paylaşım seti</p>
+              <h2>Doğrudan kopyalanabilir GBP paylaşım metinleri</h2>
+            </div>
+            <div className="card-grid two-up">
+              {gbpReadyPostCaptions.map((post) => (
+                <article className="content-card content-card--longform" key={post}>
                   <p>{post}</p>
                 </article>
               ))}

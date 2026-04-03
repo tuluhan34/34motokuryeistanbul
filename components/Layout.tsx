@@ -9,6 +9,7 @@ type LayoutProps = {
 
 const navItems = [
   { href: '/', label: 'Ana Sayfa' },
+  { href: '/rakip-analizi', label: 'Rakip Analizi' },
   { href: '/blog', label: 'Blog' },
   { href: '/galeri', label: 'Galeri' },
   { href: '/teklif-al', label: 'Teklif Al' },
@@ -66,6 +67,9 @@ export function Layout({ children }: LayoutProps) {
             <Link href="/hizmetler/express-kurye">Express Kurye</Link>
             <Link href="/hizmetler/arabalı-kurye">Arabalı Kurye</Link>
             <Link href="/kurye-fiyatlari">Kurye Fiyatları</Link>
+            <Link href="/kurye-cagir">Kurye Çağır</Link>
+            <Link href="/rakip-analizi">Rakip Analizi</Link>
+            <Link href="/gecmis-teslimatlar">Geçmiş Teslimatlar</Link>
             <Link href="/blog">Blog</Link>
             <Link href="/galeri">Galeri</Link>
             <Link href="/referanslar">Referanslar</Link>

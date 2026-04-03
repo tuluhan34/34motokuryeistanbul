@@ -1,63 +1,45 @@
 # Hızlı Deploy
 
-Ana hedef cPanel ise en doğru yol: Node.js App ile standalone deploy.
+Bu proje için öncelikli akış cPanel'e manuel yüklemeye uygun statik export paketidir.
 
-## Seçenek 1: cPanel Node.js App
+## Seçenek 1: cPanel Statik Upload
+
+1. Localde `npm run build:cpanel` çalıştır.
+2. Oluşan `out/` klasörünü zipleyip `public_html/` veya bağlı domain klasörüne yükle.
+3. Mevcut içerikleri temizleyip `out/` içeriğini kök dizine çıkar.
+4. `robots.txt`, `sitemap.xml`, `llms.txt` ve tüm alt dizinlerin kökte kaldığını doğrula.
+5. Domain yönlendirmesi varsa `www.34motokuryeistanbul.com` ana host olacak şekilde 301 uygula.
+
+Not:
+
+- Statik export akışında zorunlu environment variable yoktur.
+- Görseller statik export sırasında fallback ile üretildiği için Unsplash anahtarı olmadan build alınabilir.
+- Teklif akışı WhatsApp ve e-posta taslağı ile çalışır; SMTP zorunlu değildir.
+
+## Seçenek 2: cPanel Node.js App
 
 1. cPanel içinde `Setup Node.js App` aç.
 2. Node sürümünü `20` seç.
 3. Uygulama kökü olarak boş bir klasör belirle. Örnek: `app/34motokuryeistanbul`
-4. Bu projeden üretilen `cpanel-release.zip` paketini o klasöre yükle ve çıkart.
-5. Environment Variables alanına `.env.example` içindeki değerleri gir.
-6. Startup File olarak `server.js` seç.
-7. Uygulamayı başlat veya yeniden başlat.
+4. Bu projeden üretilen standalone paketi o klasöre yükle ve çıkart.
+5. Startup File olarak `server.js` veya dağıtım yapınıza göre `app.js` seç.
+6. Uygulamayı başlat veya yeniden başlat.
 
-Not:
-
-- Standalone paket içinde gerekli Node çalışma dosyaları bulunur.
-- `public` ve `.next/static` klasörleri pakete dahil edilmelidir.
-- Ana domain veya subdomain Node.js App'e bağlı olmalıdır.
-
-## Seçenek 2: Vercel
-
-1. Projeyi GitHub reposuna gönder.
-2. Vercel'de `Add New Project` ile repoyu içe aktar.
-3. Framework olarak `Next.js` otomatik algılanır.
-4. Environment Variables alanına `.env.example` içindeki gerekli değerleri gir.
-5. İlk deploy'u çalıştır.
-6. Domain olarak `www.34motokuryeistanbul.com` ekle.
-7. Apex domain `34motokuryeistanbul.com` adresini `www` sürümüne yönlendir.
-
-Gerekli environment variable'lar:
-
-- `UNSPLASH_APPLICATION_ID`
-- `UNSPLASH_ACCESS_KEY`
-- `UNSPLASH_SECRET_KEY`
-- `SMTP_HOST`
-- `SMTP_PORT`
-- `SMTP_USER`
-- `SMTP_PASS`
-- `SMTP_FROM`
-
-Deploy sonrası kontrol:
+## Deploy sonrası kontrol
 
 - `/`
 - `/sitemap.xml`
 - `/robots.txt`
 - `/llms.txt`
 - `/sektorler`
-- `/sektorler/dis-klinikleri`
+- `/hizmetler/sehirler-arasi-kurye`
+- `/istanbul/atasehir`
 
-## cPanel için gerekli environment variable'lar
+## İsteğe bağlı environment variable'lar
 
 - `UNSPLASH_APPLICATION_ID`
 - `UNSPLASH_ACCESS_KEY`
 - `UNSPLASH_SECRET_KEY`
-- `SMTP_HOST`
-- `SMTP_PORT`
-- `SMTP_USER`
-- `SMTP_PASS`
-- `SMTP_FROM`
 
 ## Canlı kontrol komutları
 
