@@ -13,6 +13,11 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      CPANEL_FTP_HOST: ${{ secrets.CPANEL_FTP_HOST }}
+      CPANEL_FTP_USERNAME: ${{ secrets.CPANEL_FTP_USERNAME }}
+      CPANEL_FTP_PASSWORD: ${{ secrets.CPANEL_FTP_PASSWORD }}
+      CPANEL_TARGET_DIR: ${{ secrets.CPANEL_TARGET_DIR }}
 
     steps:
       - name: Checkout
@@ -43,13 +48,22 @@ jobs:
           path: deploy-package
           if-no-files-found: error
 
+      - name: Resolve Deploy Target
+        id: deploy_target
+        run: |
+          if [ -n "$CPANEL_TARGET_DIR" ]; then
+            echo "server_dir=$CPANEL_TARGET_DIR" >> "$GITHUB_OUTPUT"
+          else
+            echo "server_dir=/public_html/" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Deploy To cPanel FTP
-        if: ${{ secrets.CPANEL_FTP_HOST != '' && secrets.CPANEL_FTP_USERNAME != '' && secrets.CPANEL_FTP_PASSWORD != '' }}
+        if: ${{ env.CPANEL_FTP_HOST != '' && env.CPANEL_FTP_USERNAME != '' && env.CPANEL_FTP_PASSWORD != '' }}
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.CPANEL_FTP_HOST }}
-          username: ${{ secrets.CPANEL_FTP_USERNAME }}
-          password: ${{ secrets.CPANEL_FTP_PASSWORD }}
+          server: ${{ env.CPANEL_FTP_HOST }}
+          username: ${{ env.CPANEL_FTP_USERNAME }}
+          password: ${{ env.CPANEL_FTP_PASSWORD }}
           local-dir: deploy-package/
-          server-dir: ${{ secrets.CPANEL_TARGET_DIR || '/public_html/' }}
+          server-dir: ${{ steps.deploy_target.outputs.server_dir }}
           dangerous-clean-slate: false
