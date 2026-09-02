@@ -47,9 +47,14 @@ jobs:
           fi
 
       - name: Sync GBP profile
-        if: ${{ secrets.GOOGLE_BUSINESS_CLIENT_ID != '' && secrets.GOOGLE_BUSINESS_CLIENT_SECRET != '' && secrets.GOOGLE_BUSINESS_REFRESH_TOKEN != '' }}
         continue-on-error: true
-        run: npm run gbp:sync
+        run: |
+          if [ -z "$GOOGLE_BUSINESS_CLIENT_ID" ] || [ -z "$GOOGLE_BUSINESS_CLIENT_SECRET" ] || [ -z "$GOOGLE_BUSINESS_REFRESH_TOKEN" ]; then
+            echo "GBP credentials not configured as secrets — skipping sync."
+            exit 0
+          fi
+          npm ci
+          npm run gbp:sync
         env:
           GOOGLE_BUSINESS_CLIENT_ID: ${{ secrets.GOOGLE_BUSINESS_CLIENT_ID }}
           GOOGLE_BUSINESS_CLIENT_SECRET: ${{ secrets.GOOGLE_BUSINESS_CLIENT_SECRET }}
