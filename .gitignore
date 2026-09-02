@@ -8,9 +8,9 @@ public/llms.txt
 public/sitemap.xml
 public/sitemap-sektorler.xml
 public/sitemap-sektor-ilceler.xml
-public/sitemap-sektor-mahalleler-1.xml
-public/sitemap-sektor-mahalleler-2.xml
-cpanel-release/*.zip
-cpanel-release/upload-test.txt
-cpanel-release/deploy-static.php
-cpanel-release/deploy-static-debug.php
+public/sitemap-sektor-mahalleler.xml
+# FTP kimlik bilgileri içerir, asla commit etme
+deploy.js
+deploy-site-direct.js
+deploy-direct*.log
+
