@@ -1,0 +1,61 @@
+name: Deploy to cPanel
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: cpanel-deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify static site folder
+        run: |
+          test -f site/index.html
+          test -f site/.htaccess
+          echo "Total files: $(find site -type f | wc -l)"
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.CPANEL_FTP_HOST }}
+          username: ${{ secrets.CPANEL_FTP_USERNAME }}
+          password: ${{ secrets.CPANEL_FTP_PASSWORD }}
+          local-dir: ./site/
+          server-dir: ./public_html/
+          dangerous-clean-slate: false
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+
+      - name: Verify deployment
+        run: |
+          sleep 10
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" -L https://34motokuryeistanbul.com)
+          echo "Site returned HTTP $HTTP_CODE"
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "WARNING: Site not returning 200"
+          fi
+
+      - name: Sync GBP profile
+        if: ${{ secrets.GOOGLE_BUSINESS_CLIENT_ID != '' && secrets.GOOGLE_BUSINESS_CLIENT_SECRET != '' && secrets.GOOGLE_BUSINESS_REFRESH_TOKEN != '' }}
+        continue-on-error: true
+        run: npm run gbp:sync
+        env:
+          GOOGLE_BUSINESS_CLIENT_ID: ${{ secrets.GOOGLE_BUSINESS_CLIENT_ID }}
+          GOOGLE_BUSINESS_CLIENT_SECRET: ${{ secrets.GOOGLE_BUSINESS_CLIENT_SECRET }}
+          GOOGLE_BUSINESS_REFRESH_TOKEN: ${{ secrets.GOOGLE_BUSINESS_REFRESH_TOKEN }}
+          GOOGLE_GBP_ACCOUNT_NAME: ${{ secrets.GOOGLE_GBP_ACCOUNT_NAME }}
+          GOOGLE_GBP_LOCATION_NAME: ${{ secrets.GOOGLE_GBP_LOCATION_NAME }}
+          GOOGLE_GBP_LOCATION_TITLE: ${{ secrets.GOOGLE_GBP_LOCATION_TITLE }}
+          GOOGLE_GBP_WEBSITE_URI: https://34motokuryeistanbul.com
+          GOOGLE_GBP_CREATE_POST: '1'
