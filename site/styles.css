@@ -764,6 +764,61 @@ img { max-width: 100%; display: block; }
   .review-cta { padding: 24px 18px; }
 }
 
+/* Sabit WhatsApp / Ara aksiyon çubuğu (tüm sayfalar, tüm ekranlar) */
+.mobile-ctas {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  display: flex;
+  gap: 2px;
+  box-shadow: 0 -8px 24px rgba(9, 20, 42, 0.16);
+}
+.mobile-ctas a {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 10px;
+  font-weight: 800;
+  font-size: 0.98rem;
+  text-decoration: none;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+.mobile-ctas a.call {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+}
+.mobile-ctas a.wa {
+  background: #25d366;
+}
+.mobile-ctas a::before {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+.mobile-ctas a.call::before { content: "📞"; }
+.mobile-ctas a.wa::before { content: "💬"; }
+body { padding-bottom: 62px; }
+
+/* Masaüstünde alt çubuğu daha zarif bir yüzen kapsüle çeviriyoruz */
+@media (min-width: 981px) {
+  body { padding-bottom: 0; }
+  .mobile-ctas {
+    left: auto;
+    right: 28px;
+    bottom: 28px;
+    width: auto;
+    border-radius: 999px;
+    overflow: hidden;
+    gap: 0;
+  }
+  .mobile-ctas a {
+    padding: 15px 22px;
+  }
+}
+
 /* Mahalle listesi (ilçe sayfaları) */
 .mahalle-list {
   column-count: 4;

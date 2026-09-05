@@ -11,6 +11,8 @@ RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://34motokuryeistanbul.com/$1 [L,R=301]
 
 # ── Konsolide edilen ilçe×anahtar kelime sayfaları (301) ──
+  Redirect 301 /services.html /hizmetlerimiz.html
+  Redirect 301 /services /hizmetlerimiz.html
   Redirect 301 /24-saat-kurye-arnavutkoy /istanbul-kurye/arnavutkoy-kurye
   Redirect 301 /24-saat-kurye-atasehir /istanbul-kurye/atasehir-kurye
   Redirect 301 /24-saat-kurye-avcilar /istanbul-kurye/avcilar-kurye
